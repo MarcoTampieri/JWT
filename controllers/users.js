@@ -93,36 +93,44 @@ module.exports = {
             if (!err) {
                 const payload = req.decoded;
                 console.log("3rd");
-                if (err, payload && payload.user === 'admin') {
+                console.log('PAYLOAD', payload)
+                if (payload && payload.user === 'admin') {
                     
                     console.log("4th");
-                    User.find({}, (err, users) => {
-                        if(!err) {
-                            console.log("5th");
-                            result.status = status;
-                            result.error = err;
-                            result.result = users;
-                        } else {
-                            status = 500;
-                            result.status = status;
-                            result.error = err;
-                        }
-                        res.status(status).send(result);
-                    });
+                    // User.find({}, (err, users) => {
+                    //     if(!err) {
+                    //         console.log("5th");
+                    //         result.status = status;
+                    //         result.error = err;
+                    //         result.result = users;
+                    //         //console.log(users)
+                    //     } else {
+                    //         console.log("6th")
+                    //         status = 500;
+                    //         result.status = status;
+                    //         result.error = err;
+                    //     }
+                    //     res.status(status).send(result);
+                    // });
+                    User.find({})
+                    .then(result => res.json(result))
+                    .catch(err => console.log(err));
+                     ;
+
                 } else {
+                    console.log("7th")
                     status = 401;
                     result.status = status;
                     result.error = `Authentication error`;
-                    res.status(status).send(result);
+                    res.status(status);
                 }
             } else {
+                console.log("8th")
                 status = 500;
                 result.status = status;
                 result.error = err;
-                res.status(status).send(result);
+                res.status(status);
             }            
         });
     },
-
 };
-

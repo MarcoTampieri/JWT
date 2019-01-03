@@ -13,7 +13,7 @@ module.exports = {
             try {
                 result = jwt.verify(token, process.env.JWT_SECRET, options);
 
-                req.decoded = token;
+                req.decoded = result;
 
                 next();
             } catch (err) {
